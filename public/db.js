@@ -1,15 +1,12 @@
 let db;
-let budgetVersion;
 
-const request = indexedDB.open("budgetDB", budgetVersion || 21);
+const request = indexedDB.open("BudgetDB");
 
 request.onupgradeneeded = function (event) {
-  const { oldVersion } = event;
-  const newVersion = event.newVersion || db.version;
   db = event.target.result;
 
   if (db.objectStoreNames.lenght === 0) {
-    db.createObjectStore("BudgetStore", { autoincrement: true });
+    db.createObjectStore("BudgetStore", { autoIncrement: true });
   }
 };
 
@@ -51,5 +48,11 @@ function checkDatabase() {
     }
   };
 }
+
+const saveRecord = (record) => {
+  const transaction = db.transaction(["BudgetStore"], "readwrite");
+  const tsx = transaction.objectStore("BudgetStore");
+  tsx.add(record);
+};
 
 window.addEventListener("online", checkDatabase);
