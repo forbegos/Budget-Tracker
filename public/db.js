@@ -1,6 +1,6 @@
 let db;
 
-const request = indexedDB.open("BudgetDB");
+const request = indexedDB.open("BudgetDB", 1);
 
 request.onupgradeneeded = function (event) {
   db = event.target.result;
