@@ -5,9 +5,8 @@ const request = indexedDB.open("BudgetDB", 1);
 request.onupgradeneeded = function (event) {
   db = event.target.result;
 
-  if (db.objectStoreNames.lenght === 0) {
-    db.createObjectStore("BudgetStore", { autoIncrement: true });
-  }
+  // if (db.objectStoreNames.lenght === 0) {}
+  db.createObjectStore("BudgetStore", { autoIncrement: true });
 };
 
 request.onerror = function (event) {
