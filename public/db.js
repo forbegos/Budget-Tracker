@@ -22,6 +22,12 @@ request.onsuccess = function (event) {
   }
 };
 
+const saveRecord = (record) => {
+  const transaction = db.transaction(["BudgetStore"], "readwrite");
+  const tsx = transaction.objectStore("BudgetStore");
+  tsx.add(record);
+};
+
 function checkDatabase() {
   var transaction = db.transaction(["BudgetStore"], "readwrite");
   const txs = transaction.objectStore("BudgetStore");
@@ -48,11 +54,5 @@ function checkDatabase() {
     }
   };
 }
-
-const saveRecord = (record) => {
-  const transaction = db.transaction(["BudgetStore"], "readwrite");
-  const tsx = transaction.objectStore("BudgetStore");
-  tsx.add(record);
-};
 
 window.addEventListener("online", checkDatabase);
